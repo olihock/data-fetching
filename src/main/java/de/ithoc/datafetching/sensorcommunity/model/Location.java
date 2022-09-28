@@ -26,7 +26,7 @@ public class Location {
 
     @JsonProperty("id")
     @Column
-    private Integer id;
+    private Long id;
     @JsonProperty("latitude")
     @Column
     private String latitude;
@@ -41,10 +41,10 @@ public class Location {
     private String country;
     @JsonProperty("exact_location")
     @Column
-    private Integer exactLocation;
+    private Long exactLocation;
     @JsonProperty("indoor")
     @Column
-    private Integer indoor;
+    private Long indoor;
     @JsonIgnore
     @Transient
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
@@ -58,12 +58,12 @@ public class Location {
     }
 
     @JsonProperty("id")
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
     @JsonProperty("id")
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -108,22 +108,22 @@ public class Location {
     }
 
     @JsonProperty("exact_location")
-    public Integer getExactLocation() {
+    public Long getExactLocation() {
         return exactLocation;
     }
 
     @JsonProperty("exact_location")
-    public void setExactLocation(Integer exactLocation) {
+    public void setExactLocation(Long exactLocation) {
         this.exactLocation = exactLocation;
     }
 
     @JsonProperty("indoor")
-    public Integer getIndoor() {
+    public Long getIndoor() {
         return indoor;
     }
 
     @JsonProperty("indoor")
-    public void setIndoor(Integer indoor) {
+    public void setIndoor(Long indoor) {
         this.indoor = indoor;
     }
 
@@ -140,7 +140,7 @@ public class Location {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(Location.class.getName()).append('@').append(Integer.toHexString(System.identityHashCode(this))).append('[');
+        sb.append(Location.class.getName()).append('@').append(Long.toHexString(System.identityHashCode(this))).append('[');
         sb.append("id");
         sb.append('=');
         sb.append(((this.id == null)?"<null>":this.id));

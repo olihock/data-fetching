@@ -27,7 +27,7 @@ public class Datum {
 
     @JsonProperty("id")
     @Column
-    private Integer id;
+    private Long id;
     @JsonProperty("sampling_rate")
     @Column
     private String samplingRate;
@@ -56,12 +56,12 @@ public class Datum {
     }
 
     @JsonProperty("id")
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
     @JsonProperty("id")
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -128,7 +128,7 @@ public class Datum {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(Datum.class.getName()).append('@').append(Integer.toHexString(System.identityHashCode(this))).append('[');
+        sb.append(Datum.class.getName()).append('@').append(Long.toHexString(System.identityHashCode(this))).append('[');
         sb.append("id");
         sb.append('=');
         sb.append(((this.id == null)?"<null>":this.id));

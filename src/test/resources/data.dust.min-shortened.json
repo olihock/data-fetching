@@ -1,0 +1,92 @@
+[
+    {
+        "id": 12346126186,
+        "sampling_rate": null,
+        "timestamp": "2022-09-28 12:06:24",
+        "location": {
+            "id": 16232,
+            "latitude": "48.8",
+            "longitude": "9.002",
+            "altitude": "365.6",
+            "country": "DE",
+            "exact_location": 0,
+            "indoor": 0
+        },
+        "sensor": {
+            "id": 92,
+            "pin": "1",
+            "sensor_type": {
+                "id": 14,
+                "name": "SDS011",
+                "manufacturer": "Nova Fitness"
+            }
+        },
+        "sensordatavalues": [
+            {
+                "id": 27539787985,
+                "value": "2.75",
+                "value_type": "P1"
+            },
+            {
+                "id": 27539788179,
+                "value": "1.35",
+                "value_type": "P2"
+            }
+        ]
+    },
+    {
+        "id": 12346107832,
+        "sampling_rate": null,
+        "timestamp": "2022-09-28 12:04:12",
+        "location": {
+            "id": 49,
+            "latitude": "48.53",
+            "longitude": "9.2",
+            "altitude": "373.1",
+            "country": "DE",
+            "exact_location": 0,
+            "indoor": 0
+        },
+        "sensor": {
+            "id": 107,
+            "pin": "5",
+            "sensor_type": {
+                "id": 1,
+                "name": "PPD42NS",
+                "manufacturer": "Shinyei"
+            }
+        },
+        "sensordatavalues": [
+            {
+                "id": 27539745588,
+                "value": "1717284.00",
+                "value_type": "durP1"
+            },
+            {
+                "id": 27539745905,
+                "value": "0.00",
+                "value_type": "durP2"
+            },
+            {
+                "id": 27539745887,
+                "value": "3059.06",
+                "value_type": "P1"
+            },
+            {
+                "id": 27539745991,
+                "value": "0.62",
+                "value_type": "P2"
+            },
+            {
+                "id": 27539745643,
+                "value": "5.72",
+                "value_type": "ratioP1"
+            },
+            {
+                "id": 27539745940,
+                "value": "0.00",
+                "value_type": "ratioP2"
+            }
+        ]
+    }
+]

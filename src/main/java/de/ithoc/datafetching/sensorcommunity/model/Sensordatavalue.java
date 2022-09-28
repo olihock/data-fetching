@@ -22,7 +22,7 @@ public class Sensordatavalue {
 
     @JsonProperty("id")
     @Column
-    private Integer id;
+    private Long id;
     @JsonProperty("value")
     @Column
     private String value;
@@ -42,12 +42,12 @@ public class Sensordatavalue {
     }
 
     @JsonProperty("id")
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
     @JsonProperty("id")
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -84,7 +84,7 @@ public class Sensordatavalue {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(Sensordatavalue.class.getName()).append('@').append(Integer.toHexString(System.identityHashCode(this))).append('[');
+        sb.append(Sensordatavalue.class.getName()).append('@').append(Long.toHexString(System.identityHashCode(this))).append('[');
         sb.append("id");
         sb.append('=');
         sb.append(((this.id == null)?"<null>":this.id));
