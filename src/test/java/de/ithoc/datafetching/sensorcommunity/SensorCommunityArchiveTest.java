@@ -1,22 +1,12 @@
 package de.ithoc.datafetching.sensorcommunity;
 
-import com.google.common.base.Charsets;
-import com.google.common.io.Resources;
 import org.junit.Ignore;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.List;
-import java.util.Objects;
 
 @SpringBootTest
 public class SensorCommunityArchiveTest {
@@ -35,7 +25,7 @@ public class SensorCommunityArchiveTest {
     }
 
     @Test
-    void download_and_filter_date_list() throws IOException, URISyntaxException {
+    void download_and_filter_date_list() {
         String url = "https://archive.sensor.community/";
         String download = sensorCommunityArchive.download(url);
         List<String> dates = sensorCommunityArchive.filterDates(download);
