@@ -12,6 +12,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+import java.util.List;
 
 @SpringBootTest
 class MeasurementPersisterTest {
@@ -24,7 +26,7 @@ class MeasurementPersisterTest {
     @BeforeAll
     static void beforeAll() throws IOException {
         String fileName = "data.dust.min-shortened.json";
-        InputStream resourceAsStream = FileLoaderTest.class.getClassLoader().getResourceAsStream(fileName);
+        InputStream resourceAsStream = MeasurementPersisterTest.class.getClassLoader().getResourceAsStream(fileName);
         assert resourceAsStream != null;
         String json =  new String(resourceAsStream.readAllBytes(), StandardCharsets.UTF_8);
         ObjectMapper objectMapper = new ObjectMapper();
@@ -46,7 +48,11 @@ class MeasurementPersisterTest {
     }
 
     @Test
-    void testSave() {
+    void save_multiple_data() {
+        List<Datum> savedData = measurementPersister.save(Arrays.asList(data));
+
+        Assertions.assertNotNull(savedData);
+        Assertions.assertIterableEquals(Arrays.asList(data), savedData);
     }
 
 }

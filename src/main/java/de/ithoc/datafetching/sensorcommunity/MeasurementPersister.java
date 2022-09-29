@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class MeasurementPersister {
@@ -50,18 +49,17 @@ public class MeasurementPersister {
         datum.setSensor(savedSensor);
 
         List<Sensordatavalue> sensordatavalues = datum.getSensordatavalues();
-        List<Sensordatavalue> savedSensordatavalues = sensordatavalues.stream().map(sensordatavalue -> {
-            Sensordatavalue savedSensordatavalue = sensordatavalueRepository.findById(
-                    sensordatavalue.getId()).orElseGet(() -> sensordatavalueRepository.save(sensordatavalue));
-            return savedSensordatavalue;
-        }).toList();
+        List<Sensordatavalue> savedSensordatavalues = sensordatavalues.stream().map(
+                sensordatavalue -> sensordatavalueRepository.findById(
+                    sensordatavalue.getId()).orElseGet(() -> sensordatavalueRepository.save(sensordatavalue)))
+                .toList();
         datum.setSensordatavalues(savedSensordatavalues);
 
         return datumRepository.save(datum);
     }
 
-    public List<Datum> save(Datum[] data) {
-        return datumRepository.saveAll(Arrays.asList(data));
+    public List<Datum> save(List<Datum> data) {
+        return data.stream().map(this::save).toList();
     }
 
 }

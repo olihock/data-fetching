@@ -35,7 +35,7 @@ class MeasurementFetcherTest {
     @BeforeAll
     static void beforeAll() throws IOException {
         String fileName = "data.dust.min-shortened.json";
-        InputStream resourceAsStream = FileLoaderTest.class.getClassLoader().getResourceAsStream(fileName);
+        InputStream resourceAsStream = MeasurementFetcherTest.class.getClassLoader().getResourceAsStream(fileName);
         assert resourceAsStream != null;
         measurementJson =  new String(resourceAsStream.readAllBytes(), StandardCharsets.UTF_8);
     }
@@ -64,6 +64,41 @@ class MeasurementFetcherTest {
 
         Assertions.assertNotNull(datum);
         Assertions.assertEquals(modelData[0], datum);
+    }
+
+    @Test
+    void load_data_dust_min() throws IOException {
+        String fileName = "data.dust.min.json";
+        InputStream resourceAsStream = MeasurementFetcherTest.class.getClassLoader().getResourceAsStream(fileName);
+        assert resourceAsStream != null;
+        String json =  new String(resourceAsStream.readAllBytes(), StandardCharsets.UTF_8);
+
+        String url = "https://api.luftdaten.info/static/v2/data.dust.min.json";
+        Datum[] responseData = objectMapper.readValue(json, Datum[].class);
+        ResponseEntity<Datum[]> responseEntity = new ResponseEntity<>(responseData, HttpStatus.OK);
+        Mockito.when(restTemplate.getForEntity(url, Datum[].class)).thenReturn(responseEntity);
+
+        Datum[] data = measurementFetcher.load(url);
+
+        Assertions.assertNotNull(data);
+    }
+
+    @Test
+    void load_filter_box_hafencity() throws IOException {
+        String fileName = "filter.hafencity.json";
+        InputStream resourceAsStream = MeasurementFetcherTest.class.getClassLoader().getResourceAsStream(fileName);
+        assert resourceAsStream != null;
+        String json =  new String(resourceAsStream.readAllBytes(), StandardCharsets.UTF_8);
+
+        String url = "https://data.sensor.community/airrohr/v1/filter/box=53.56,10.00,53.58,10.10";
+        Datum[] responseData = objectMapper.readValue(json, Datum[].class);
+        ResponseEntity<Datum[]> responseEntity = new ResponseEntity<>(responseData, HttpStatus.OK);
+        Mockito.when(restTemplate.getForEntity(url, Datum[].class)).thenReturn(responseEntity);
+
+        Datum[] data = measurementFetcher.load(url);
+
+        Assertions.assertNotNull(data);
+
     }
 
 }
