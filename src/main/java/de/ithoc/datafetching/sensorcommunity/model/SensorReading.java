@@ -19,7 +19,7 @@ import java.util.Map;
     "sensordatavalues"
 })
 @Entity
-public class Datum {
+public class SensorReading {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "tid", nullable = false)
@@ -128,7 +128,7 @@ public class Datum {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(Datum.class.getName()).append('@').append(Long.toHexString(System.identityHashCode(this))).append('[');
+        sb.append(SensorReading.class.getName()).append('@').append(Long.toHexString(System.identityHashCode(this))).append('[');
         sb.append("id");
         sb.append('=');
         sb.append(((this.id == null)?"<null>":this.id));
@@ -183,10 +183,10 @@ public class Datum {
         if (other == this) {
             return true;
         }
-        if ((other instanceof Datum) == false) {
+        if ((other instanceof SensorReading) == false) {
             return false;
         }
-        Datum rhs = ((Datum) other);
+        SensorReading rhs = ((SensorReading) other);
         return ((((((((this.sensordatavalues == rhs.sensordatavalues)||((this.sensordatavalues!= null)&&this.sensordatavalues.equals(rhs.sensordatavalues)))&&((this.samplingRate == rhs.samplingRate)||((this.samplingRate!= null)&&this.samplingRate.equals(rhs.samplingRate))))&&((this.location == rhs.location)||((this.location!= null)&&this.location.equals(rhs.location))))&&((this.sensor == rhs.sensor)||((this.sensor!= null)&&this.sensor.equals(rhs.sensor))))&&((this.id == rhs.id)||((this.id!= null)&&this.id.equals(rhs.id))))&&((this.additionalProperties == rhs.additionalProperties)||((this.additionalProperties!= null)&&this.additionalProperties.equals(rhs.additionalProperties))))&&((this.timestamp == rhs.timestamp)||((this.timestamp!= null)&&this.timestamp.equals(rhs.timestamp))));
     }
 

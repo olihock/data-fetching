@@ -114,16 +114,21 @@
                 <artifactId>jsonschema2pojo-maven-plugin</artifactId>
                 <version>1.0.1</version>
                 <configuration>
-                    <sourceDirectory>${basedir}/src/main/resources/sensorcommunity</sourceDirectory>
-                    <sourceType>json</sourceType>
-                    <targetPackage>de.ithoc.datafetching.sensorcommunity</targetPackage>
-                    <useLongIntegers>true</useLongIntegers>
+                    <sourcePaths>
+                        <sourcePath>${basedir}/src/main/resources/sensorcommunity/schema</sourcePath>
+                    </sourcePaths>
                 </configuration>
                 <executions>
                     <execution>
                         <goals>
                             <goal>generate</goal>
                         </goals>
+                        <configuration>
+                            <sourceDirectory>${basedir}/src/main/resources/sensorcommunity/schema</sourceDirectory>
+                            <sourceType>json</sourceType>
+                            <targetPackage>de.ithoc.datafetching.sensorcommunity.schema</targetPackage>
+                            <useLongIntegers>true</useLongIntegers>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>

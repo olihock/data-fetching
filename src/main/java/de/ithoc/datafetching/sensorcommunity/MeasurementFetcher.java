@@ -1,5 +1,6 @@
 package de.ithoc.datafetching.sensorcommunity;
 
+import de.ithoc.datafetching.sensorcommunity.schema.SensorReading;
 import org.dozer.DozerBeanMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
@@ -19,8 +20,8 @@ public class MeasurementFetcher {
         this.dozerBeanMapper = dozerBeanMapper;
     }
 
-    public Datum[] load(String url) {
-        ResponseEntity<Datum[]> response = restTemplate.getForEntity(url, Datum[].class);
+    public SensorReading[] load(String url) {
+        ResponseEntity<SensorReading[]> response = restTemplate.getForEntity(url, SensorReading[].class);
         return response.getBody();
     }
 
@@ -28,12 +29,12 @@ public class MeasurementFetcher {
         return restTemplate.getForObject(url, String.class);
     }
 
-    public de.ithoc.datafetching.sensorcommunity.model.Datum map(Datum datum) {
-        return dozerBeanMapper.map(datum, de.ithoc.datafetching.sensorcommunity.model.Datum.class);
+    public de.ithoc.datafetching.sensorcommunity.model.SensorReading map(SensorReading datum) {
+        return dozerBeanMapper.map(datum, de.ithoc.datafetching.sensorcommunity.model.SensorReading.class);
     }
 
-    public List<de.ithoc.datafetching.sensorcommunity.model.Datum> filterBySensorType(
-            de.ithoc.datafetching.sensorcommunity.model.Datum[] data, String sensorTypeName) {
+    public List<de.ithoc.datafetching.sensorcommunity.model.SensorReading> filterBySensorType(
+            de.ithoc.datafetching.sensorcommunity.model.SensorReading[] data, String sensorTypeName) {
         return Arrays.stream(data).filter(
                 datum -> sensorTypeName.equals(datum.getSensor().getSensorType().getName())).toList();
     }

@@ -2,7 +2,7 @@ package de.ithoc.datafetching.sensorcommunity;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.ithoc.datafetching.sensorcommunity.model.Datum;
+import de.ithoc.datafetching.sensorcommunity.model.SensorReading;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -37,10 +37,10 @@ public class MeasurementTask {
         String rawJson = measurementFetcher.loadRawJson(filterBoxUrl);
        System.out.println(LocalDateTime.now() + " rawJson: " + rawJson.length() + "");
 
-        Datum[] data = objectMapper.readValue(rawJson, Datum[].class);
+        SensorReading[] data = objectMapper.readValue(rawJson, SensorReading[].class);
         System.out.println(LocalDateTime.now() + " data: " + data);
 
-        List<Datum> dataList = measurementFetcher.filterBySensorType(data, "SDS011");
+        List<SensorReading> dataList = measurementFetcher.filterBySensorType(data, "SDS011");
         measurementPersister.save(dataList);
         System.out.println(LocalDateTime.now() + ": Fetching done");
     }

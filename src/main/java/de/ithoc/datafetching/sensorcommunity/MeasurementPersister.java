@@ -1,6 +1,6 @@
 package de.ithoc.datafetching.sensorcommunity;
 
-import de.ithoc.datafetching.sensorcommunity.model.Datum;
+import de.ithoc.datafetching.sensorcommunity.model.SensorReading;
 import de.ithoc.datafetching.sensorcommunity.model.Location;
 import de.ithoc.datafetching.sensorcommunity.model.Sensor;
 import de.ithoc.datafetching.sensorcommunity.model.SensorType;
@@ -8,7 +8,6 @@ import de.ithoc.datafetching.sensorcommunity.model.Sensordatavalue;
 import de.ithoc.datafetching.sensorcommunity.repositories.*;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -31,14 +30,14 @@ public class MeasurementPersister {
         this.sensordatavalueRepository = sensordatavalueRepository;
     }
 
-    public Datum save(Datum datum) {
+    public SensorReading save(SensorReading sensorReading) {
 
-        Location location = datum.getLocation();
+        Location location = sensorReading.getLocation();
         Location savedLocation = locationRepository.findById(
                 location.getId()).orElseGet(() -> locationRepository.save(location));
-        datum.setLocation(savedLocation);
+        sensorReading.setLocation(savedLocation);
 
-        Sensor sensor = datum.getSensor();
+        Sensor sensor = sensorReading.getSensor();
 
         SensorType sensorType = sensor.getSensorType();
         SensorType savedSensorType = sensorTypeRepository.findById(
@@ -46,19 +45,19 @@ public class MeasurementPersister {
         sensor.setSensorType(savedSensorType);
 
         Sensor savedSensor = sensorRepository.findById(sensor.getId()).orElseGet(() -> sensorRepository.save(sensor));
-        datum.setSensor(savedSensor);
+        sensorReading.setSensor(savedSensor);
 
-        List<Sensordatavalue> sensordatavalues = datum.getSensordatavalues();
+        List<Sensordatavalue> sensordatavalues = sensorReading.getSensordatavalues();
         List<Sensordatavalue> savedSensordatavalues = sensordatavalues.stream().map(
                 sensordatavalue -> sensordatavalueRepository.findById(
                     sensordatavalue.getId()).orElseGet(() -> sensordatavalueRepository.save(sensordatavalue)))
                 .toList();
-        datum.setSensordatavalues(savedSensordatavalues);
+        sensorReading.setSensordatavalues(savedSensordatavalues);
 
-        return datumRepository.save(datum);
+        return datumRepository.save(sensorReading);
     }
 
-    public List<Datum> save(List<Datum> data) {
+    public List<SensorReading> save(List<SensorReading> data) {
         return data.stream().map(this::save).toList();
     }
 
