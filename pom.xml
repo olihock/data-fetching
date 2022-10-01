@@ -116,10 +116,12 @@
                 <configuration>
                     <sourcePaths>
                         <sourcePath>${basedir}/src/main/resources/sensorcommunity/schema</sourcePath>
+                        <sourcePath>${basedir}/src/main/resources/openweathermap/schema</sourcePath>
                     </sourcePaths>
                 </configuration>
                 <executions>
                     <execution>
+                        <id>sensorcommunity</id>
                         <goals>
                             <goal>generate</goal>
                         </goals>
@@ -127,6 +129,18 @@
                             <sourceDirectory>${basedir}/src/main/resources/sensorcommunity/schema</sourceDirectory>
                             <sourceType>json</sourceType>
                             <targetPackage>de.ithoc.datafetching.sensorcommunity.schema</targetPackage>
+                            <useLongIntegers>true</useLongIntegers>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>openweathermap</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <sourceDirectory>${basedir}/src/main/resources/openweathermap/schema</sourceDirectory>
+                            <sourceType>json</sourceType>
+                            <targetPackage>de.ithoc.datafetching.openweathermap.schema</targetPackage>
                             <useLongIntegers>true</useLongIntegers>
                         </configuration>
                     </execution>
