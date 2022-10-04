@@ -8,4 +8,4 @@ z = data(:, 3);
 m = length(Y);
 
 figure;
-plot3(X, Y, z, 'x');
+plot3(X, Y, z, 'o');
