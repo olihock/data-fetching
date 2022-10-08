@@ -14,6 +14,9 @@ public class DataFetchingApplication {
     @Value("${data.sensor.community.filter.box}")
     private String filterBoxUrl;
 
+    @Value("${weather.url}")
+    private String wheatherUrl;
+
     public static void main(String[] args) {
         SpringApplication.run(DataFetchingApplication.class, args);
     }
@@ -31,6 +34,11 @@ public class DataFetchingApplication {
     @Bean
     public String filterBoxUrl() {
         return filterBoxUrl;
+    }
+
+    @Bean
+    public String weatherUrl() {
+        return wheatherUrl;
     }
 
 }

@@ -15,5 +15,6 @@ services:
       - '8079:8080'
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/data-fetching
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
     links:
       - db

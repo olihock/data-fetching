@@ -19,43 +19,30 @@ import java.util.Map;
 })
 @Entity
 public class Location {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "tid", nullable = false)
-    private Long tid;
 
-    @JsonProperty("id")
-    @Column
+    @Id
     private Long id;
-    @JsonProperty("latitude")
+
     @Column
     private String latitude;
-    @JsonProperty("longitude")
+
     @Column
     private String longitude;
-    @JsonProperty("altitude")
+
     @Column
     private String altitude;
-    @JsonProperty("country")
+
     @Column
     private String country;
-    @JsonProperty("exact_location")
+
     @Column
     private Long exactLocation;
-    @JsonProperty("indoor")
+
     @Column
     private Long indoor;
-    @JsonIgnore
+
     @Transient
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
-
-    public Long getTid() {
-        return tid;
-    }
-
-    public void setTid(Long tid) {
-        this.tid = tid;
-    }
 
     @JsonProperty("id")
     public Long getId() {

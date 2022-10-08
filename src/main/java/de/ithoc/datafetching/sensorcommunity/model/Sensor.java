@@ -15,13 +15,9 @@ import java.util.Map;
 })
 @Entity
 public class Sensor {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "tid", nullable = false)
-    private Long tid;
 
     @JsonProperty("id")
-    @Column
+    @Id
     private Long id;
     @JsonProperty("pin")
     @Column
@@ -32,14 +28,6 @@ public class Sensor {
     @JsonIgnore
     @Transient
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
-
-    public Long getTid() {
-        return tid;
-    }
-
-    public void setTid(Long tid) {
-        this.tid = tid;
-    }
 
     @JsonProperty("id")
     public Long getId() {
