@@ -25,6 +25,23 @@ Stop and Remove Container
 docker rm -f postgres
 ```
 
+Build a layered JAR (default layers)
+```
+./mvnw spring-boot:build-image
+./mvnw -DskipTests spring-boot:build-image
+```
+
+Display layers in JAR
+```
+java -Djarmode=layertools -jar target/data-fetching-0.0.1-SNAPSHOT.jar list
+```
+
+Build docker application
+```
+docker-compose build
+```
+
+
 SDS011 Air Quality/Dust Sensor 
 - (PM1, PM2.5, PM10)
 - (früher PPD42NS)

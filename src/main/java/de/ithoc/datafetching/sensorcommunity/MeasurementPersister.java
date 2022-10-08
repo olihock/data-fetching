@@ -9,6 +9,7 @@ import de.ithoc.datafetching.sensorcommunity.repositories.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class MeasurementPersister {
@@ -51,14 +52,14 @@ public class MeasurementPersister {
         List<Sensordatavalue> savedSensordatavalues = sensordatavalues.stream().map(
                 sensordatavalue -> sensordatavalueRepository.findById(
                     sensordatavalue.getId()).orElseGet(() -> sensordatavalueRepository.save(sensordatavalue)))
-                .toList();
+                .collect(Collectors.toList());
         sensorReading.setSensordatavalues(savedSensordatavalues);
 
         return datumRepository.save(sensorReading);
     }
 
     public List<SensorReading> save(List<SensorReading> data) {
-        return data.stream().map(this::save).toList();
+        return data.stream().map(this::save).collect(Collectors.toList());
     }
 
 }

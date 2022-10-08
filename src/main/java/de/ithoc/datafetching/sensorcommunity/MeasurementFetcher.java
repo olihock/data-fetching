@@ -8,6 +8,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 public class MeasurementFetcher {
@@ -36,7 +37,8 @@ public class MeasurementFetcher {
     public List<de.ithoc.datafetching.sensorcommunity.model.SensorReading> filterBySensorType(
             de.ithoc.datafetching.sensorcommunity.model.SensorReading[] data, String sensorTypeName) {
         return Arrays.stream(data).filter(
-                datum -> sensorTypeName.equals(datum.getSensor().getSensorType().getName())).toList();
+                datum -> sensorTypeName.equals(datum.getSensor().getSensorType().getName())
+        ).collect(Collectors.toList());
     }
 
 }
