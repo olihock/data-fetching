@@ -9,28 +9,54 @@ import java.util.Map;
 @Entity
 public class WeatherReading {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long tid;
+
     @OneToOne
     private Coord coord;
-    @OneToMany
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "weather_reading_id")
     private List<Weather> weather = new ArrayList<Weather>();
+
     private String base;
+
     @OneToOne
     private Main main;
+
     private Long visibility;
+
     @OneToOne
     private Wind wind;
+
     @OneToOne
     private Clouds clouds;
-    @Id
+
     private Long dt;
+
     @OneToOne
     private Sys sys;
+
     private Long timezone;
+
+    @Column(name = "city_id")
     private Long id;
+
+    @Column(name = "city_name")
     private String name;
+
     private Long cod;
+
     @Transient
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+
+    public Long getTid() {
+        return tid;
+    }
+    public void setTid(Long tid) {
+        this.tid = tid;
+    }
 
     public Coord getCoord() {
         return coord;

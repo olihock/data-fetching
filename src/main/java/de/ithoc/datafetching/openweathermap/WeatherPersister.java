@@ -56,19 +56,26 @@ public class WeatherPersister {
     public WeatherReading save(WeatherReading weatherReading) {
 
         // In case the reading has already been fetched and saved, just return the saved entity and skip the rest.
-        Optional<WeatherReading> optionalWeatherReading = weatherReadingRepository.findById(weatherReading.getDt());
-        if(optionalWeatherReading.isPresent()) {
+        Optional<WeatherReading> optionalWeatherReading
+                = weatherReadingRepository.findByDt(weatherReading.getDt());
+        if (optionalWeatherReading.isPresent()) {
             return optionalWeatherReading.get();
         }
 
         // Always save coordinates for new weather readings as this is informative and has now ID.
         Coord coord = weatherReading.getCoord();
         coordRepository.save(coord);
+        weatherReading.setCoord(coord);
 
         // Weather entities can be more than one, so walk through to check, save and set them.
         List<Weather> weathers = weatherReading.getWeather();
-        List<Weather> collectedWeathers = weathers.stream().map(weather ->
-            weatherRepository.findById(weather.getId()).orElseGet(() -> weatherRepository.save(weather))
+        List<Weather> collectedWeathers = weathers.stream().map(weather -> {
+                    Optional<Weather> foundWeather = weatherRepository.findById(weather.getId());
+                    if (foundWeather.isEmpty()) {
+                        return weatherRepository.save(weather);
+                    }
+                    return foundWeather.get();
+                }
         ).collect(Collectors.toList());
         weatherReading.setWeather(collectedWeathers);
 
@@ -93,7 +100,9 @@ public class WeatherPersister {
         weatherReading.setSys(savedSys);
 
         // Rest goes in as complete weather reading. Be reminded, it does not exist, yet. That was checked already.
-        return weatherReadingRepository.save(weatherReading);
+        WeatherReading savedWeatherReading = weatherReadingRepository.save(weatherReading);
+
+        return savedWeatherReading;
     }
 
 }

@@ -22,16 +22,18 @@ public class WeatherTask {
     }
 
     @Async
-    @Scheduled(cron = "0 0/5 * * * ?")
+    @Scheduled(cron = "0 0/1 * * * ?")
     public void fetch() {
         System.out.println("Start weather fetching: " + weatherUrl);
 
-        WeatherReading weatherReading = weatherFetcher.load(weatherUrl);
-        de.ithoc.datafetching.openweathermap.model.WeatherReading model = weatherFetcher.map(weatherReading);
+        WeatherReading weatherReadingSchema = weatherFetcher.load(weatherUrl);
+        de.ithoc.datafetching.openweathermap.model.WeatherReading weatherReadingModel
+                = weatherFetcher.map(weatherReadingSchema);
 
-        // TODO Persist weather reading
+        de.ithoc.datafetching.openweathermap.model.WeatherReading savedWeatherReading
+                = weatherPersister.save(weatherReadingModel);
 
-        System.out.println("Weather fetching done");
+        System.out.println("Weather fetching done: " + savedWeatherReading.getDt());
     }
 
 }

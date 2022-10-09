@@ -64,7 +64,7 @@ class WeatherPersisterTest {
         de.ithoc.datafetching.openweathermap.model.WeatherReading weatherReadingSpy = spy(weatherReadingModel);
 
         Optional<de.ithoc.datafetching.openweathermap.model.WeatherReading> emptyWeatherReading = Optional.empty();
-        when(weatherReadingRepository.findById(weatherReadingModel.getDt())).thenReturn(emptyWeatherReading);
+        when(weatherReadingRepository.findByDt(weatherReadingModel.getDt())).thenReturn(emptyWeatherReading);
 
         when(weatherRepository.findById(weatherReadingModel.getWeather().get(0).getId())).thenReturn(
                 Optional.ofNullable(weatherReadingModel.getWeather().get(0)));
@@ -94,7 +94,7 @@ class WeatherPersisterTest {
         de.ithoc.datafetching.openweathermap.model.WeatherReading save = weatherPersister.save(weatherReadingSpy);
 
         Assertions.assertNotNull(save);
-        verify(weatherReadingRepository).findById(weatherReadingModel.getDt());
+        verify(weatherReadingRepository).findByDt(weatherReadingModel.getDt());
         verify(coordRepository).save(weatherReadingModel.getCoord());
         verify(weatherRepository, times(2)).findById(anyLong());
         verify(weatherRepository, never()).save(any(Weather.class));

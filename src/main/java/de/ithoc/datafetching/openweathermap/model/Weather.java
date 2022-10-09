@@ -1,10 +1,7 @@
 
 package de.ithoc.datafetching.openweathermap.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,15 +9,25 @@ import java.util.Map;
 public class Weather {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long tid;
+
+    @Column(name = "wheater_id")
     private Long id;
-    @Column
+
     private String main;
-    @Column
     private String description;
-    @Column
     private String icon;
+
     @Transient
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+
+    public Long getTid() {
+        return tid;
+    }
+    public void setTid(Long tid) {
+        this.tid = tid;
+    }
 
     public Long getId() {
         return id;

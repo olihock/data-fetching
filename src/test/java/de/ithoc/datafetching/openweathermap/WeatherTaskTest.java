@@ -45,13 +45,16 @@ class WeatherTaskTest {
 
         when(weatherFetcher.load(Mockito.any())).thenReturn(schemaReading);
         when(weatherFetcher.map(any(WeatherReading.class))).thenReturn(modelReading);
+        when(weatherPersister.save(modelReading)).thenAnswer(reading -> {
+            modelReading.setId(1308L);
+            return modelReading;
+        });
 
         weatherTask.fetch();
 
         verify(weatherFetcher).load(any());
         verify(weatherFetcher, times(1)).map(any(WeatherReading.class));
-
-        // TODO Test weather persister
+        verify(weatherPersister).save(modelReading);
     }
 
 }
