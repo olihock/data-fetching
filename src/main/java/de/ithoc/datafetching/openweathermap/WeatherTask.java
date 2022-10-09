@@ -10,12 +10,12 @@ import org.springframework.stereotype.Service;
 public class WeatherTask {
 
     private final String weatherUrl;
-    private final OpenWeatherMapFetcher weatherFetcher;
+    private final WeatherFetcher weatherFetcher;
     private final WeatherPersister weatherPersister;
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    public WeatherTask(String weatherUrl, OpenWeatherMapFetcher weatherFetcher, WeatherPersister weatherPersister) {
+    public WeatherTask(String weatherUrl, WeatherFetcher weatherFetcher, WeatherPersister weatherPersister) {
         this.weatherUrl = weatherUrl;
         this.weatherFetcher = weatherFetcher;
         this.weatherPersister = weatherPersister;

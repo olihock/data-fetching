@@ -20,13 +20,13 @@ import java.nio.charset.StandardCharsets;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @ExtendWith(MockitoExtension.class)
-class OpenWeatherMapFetcherTest {
+class WeatherFetcherTest {
 
     @Mock
     private RestTemplate restTemplate;
 
     @InjectMocks
-    private OpenWeatherMapFetcher openWeatherMapFetcher;
+    private WeatherFetcher weatherFetcher;
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
@@ -42,7 +42,7 @@ class OpenWeatherMapFetcherTest {
         ResponseEntity<WeatherReading> responseEntity = new ResponseEntity<>(responseData, HttpStatus.OK);
         Mockito.when(restTemplate.getForEntity(url, WeatherReading.class)).thenReturn(responseEntity);
 
-        WeatherReading data = openWeatherMapFetcher.load(url);
+        WeatherReading data = weatherFetcher.load(url);
 
         assertNotNull(data);
 
@@ -55,7 +55,7 @@ class OpenWeatherMapFetcherTest {
         assert resourceAsStream != null;
         String json = new String(resourceAsStream.readAllBytes(), StandardCharsets.UTF_8);
         WeatherReading responseData = objectMapper.readValue(json, WeatherReading.class);
-        OpenWeatherMapFetcher fetcher = new OpenWeatherMapFetcher(null, new DozerBeanMapper());
+        WeatherFetcher fetcher = new WeatherFetcher(null, new DozerBeanMapper());
 
         de.ithoc.datafetching.openweathermap.model.WeatherReading weatherReading = fetcher.map(responseData);
 

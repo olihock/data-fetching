@@ -14,7 +14,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -22,7 +21,7 @@ import static org.mockito.Mockito.*;
 class WeatherTaskTest {
 
     @Mock
-    private OpenWeatherMapFetcher weatherFetcher;
+    private WeatherFetcher weatherFetcher;
 
     @Mock
     private WeatherPersister weatherPersister;

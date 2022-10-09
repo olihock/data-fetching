@@ -1,10 +1,9 @@
 package de.ithoc.datafetching.openweathermap;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.ithoc.datafetching.openweathermap.model.Main;
 import de.ithoc.datafetching.openweathermap.model.Weather;
-import de.ithoc.datafetching.openweathermap.schema.WeatherReading;
 import de.ithoc.datafetching.openweathermap.repositories.*;
+import de.ithoc.datafetching.openweathermap.schema.WeatherReading;
 import org.dozer.DozerBeanMapper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -13,7 +12,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.IOException;
@@ -21,7 +19,6 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
