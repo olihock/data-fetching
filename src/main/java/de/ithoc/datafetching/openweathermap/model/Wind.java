@@ -17,8 +17,7 @@ import java.util.Map;
 public class Wind {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "tid", nullable = false)
-    private Long tid;
+    private Long id;
 
     @JsonProperty("speed")
     @Column
@@ -33,12 +32,12 @@ public class Wind {
     @Transient
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
-    public Long getTid() {
-        return tid;
+    public Long getId() {
+        return id;
     }
 
-    public void setTid(Long tid) {
-        this.tid = tid;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @JsonProperty("speed")

@@ -43,8 +43,8 @@ class MeasurementPersisterTest {
         SensorReading savedSensorReading1 = measurementPersister.save(sensorReading[0]);
         SensorReading savedSensorReading2 = measurementPersister.save(sensorReading[1]);
 
-        Assertions.assertNotNull(savedSensorReading1.getTid());
-        Assertions.assertNotNull(savedSensorReading2.getTid());
+        Assertions.assertNotNull(savedSensorReading1.getId());
+        Assertions.assertNotNull(savedSensorReading2.getId());
     }
 
     @Test
