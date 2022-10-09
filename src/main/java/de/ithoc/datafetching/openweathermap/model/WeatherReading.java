@@ -17,7 +17,7 @@ public class WeatherReading {
     private Coord coord;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "weather_reading_id")
+    @JoinColumn(name = "id", referencedColumnName = "tid")
     private List<Weather> weather = new ArrayList<Weather>();
 
     private String base;

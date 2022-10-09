@@ -66,17 +66,6 @@ class WeatherPersisterTest {
         Optional<de.ithoc.datafetching.openweathermap.model.WeatherReading> emptyWeatherReading = Optional.empty();
         when(weatherReadingRepository.findByDt(weatherReadingModel.getDt())).thenReturn(emptyWeatherReading);
 
-        when(weatherRepository.findById(weatherReadingModel.getWeather().get(0).getId())).thenReturn(
-                Optional.ofNullable(weatherReadingModel.getWeather().get(0)));
-        when(weatherRepository.findById(weatherReadingModel.getWeather().get(1).getId())).thenReturn(
-                Optional.ofNullable(weatherReadingModel.getWeather().get(1)));
-        /* save must not be called for this setup
-        when(weatherRepository.save(weatherReadingModel.getWeather().get(0))).thenReturn(
-                weatherReadingModel.getWeather().get(0));
-        when(weatherRepository.save(weatherReadingModel.getWeather().get(1))).thenReturn(
-                weatherReadingModel.getWeather().get(1));
-         */
-
         when(mainRepository.save(weatherReadingModel.getMain())).thenReturn(weatherReadingModel.getMain());
         doNothing().when(weatherReadingSpy).setMain(weatherReadingModel.getMain());
 
@@ -97,7 +86,7 @@ class WeatherPersisterTest {
         verify(weatherReadingRepository).findByDt(weatherReadingModel.getDt());
         verify(coordRepository).save(weatherReadingModel.getCoord());
         verify(weatherRepository, times(2)).findById(anyLong());
-        verify(weatherRepository, never()).save(any(Weather.class));
+        verify(weatherRepository, times(2)).save(any(Weather.class));
         verify(mainRepository).save(weatherReadingModel.getMain());
         verify(weatherReadingSpy).setMain(weatherReadingModel.getMain());
         verify(weatherReadingSpy).setWind(weatherReadingModel.getWind());

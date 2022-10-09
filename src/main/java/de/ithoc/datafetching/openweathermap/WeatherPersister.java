@@ -70,7 +70,7 @@ public class WeatherPersister {
         // Weather entities can be more than one, so walk through to check, save and set them.
         List<Weather> weathers = weatherReading.getWeather();
         List<Weather> collectedWeathers = weathers.stream().map(weather -> {
-                    Optional<Weather> foundWeather = weatherRepository.findById(weather.getId());
+                    Optional<Weather> foundWeather = weatherRepository.findById(weatherReading.getId());
                     if (foundWeather.isEmpty()) {
                         return weatherRepository.save(weather);
                     }
