@@ -1,10 +1,8 @@
 package de.ithoc.datafetching;
 
-import org.dozer.DozerBeanMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
@@ -24,11 +22,6 @@ public class DataFetchingApplication {
     @Bean
     public RestTemplate restTemplate() {
         return new RestTemplate();
-    }
-
-    @Bean
-    public DozerBeanMapper dozerBeanMapper() {
-        return new DozerBeanMapper();
     }
 
     @Bean

@@ -4,8 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import de.ithoc.datafetching.openweathermap.model.WeatherReading;
 import de.ithoc.datafetching.openweathermap.repositories.WeatherReadingRepository;
 import de.ithoc.datafetching.openweathermap.repositories.WeatherRepository;
+import de.ithoc.datafetching.sensorcommunity.SensorCommunityMapper;
 import org.assertj.core.api.Assertions;
-import org.dozer.DozerBeanMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,8 +62,7 @@ public class WeatherIntegrationTest {
         String json =  new String(resourceAsStream.readAllBytes(), StandardCharsets.UTF_8);
         ObjectMapper objectMapper = new ObjectMapper();
         de.ithoc.datafetching.openweathermap.schema.WeatherReading weatherReadingSchema = objectMapper.readValue(json, de.ithoc.datafetching.openweathermap.schema.WeatherReading.class);
-        DozerBeanMapper dozerBeanMapper = new DozerBeanMapper();
-        return dozerBeanMapper.map(weatherReadingSchema, WeatherReading.class);
+        return SensorCommunityMapper.INSTANCE.convert(weatherReadingSchema);
     }
 
 }
