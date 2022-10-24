@@ -1,18 +1,17 @@
-package de.ithoc.datafetching.particulatematter;
+package de.ithoc.datafetching.sensorcommunity.repositories;
 
+import de.ithoc.datafetching.sensorcommunity.model.SensorReading;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
-public interface ParticulateMatterRepository extends JpaRepository<Example, Long> {
+public interface SensorReadingRepository extends JpaRepository<SensorReading, Long> {
 
     @Query(value = "select sensorReading from SensorReading sensorReading " +
             "where sensorReading.timestamp >= :from and sensorReading.timestamp <= :to"
     )
-    List<Example> query(@Param("from") String from, @Param("to") String to);
+    List<SensorReading> findFromTo(@Param("from") String from, @Param("to") String to);
 
 }

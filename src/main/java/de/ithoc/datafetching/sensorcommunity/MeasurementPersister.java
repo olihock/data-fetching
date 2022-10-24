@@ -14,17 +14,17 @@ import java.util.stream.Collectors;
 @Service
 public class MeasurementPersister {
 
-    private final DatumRepository datumRepository;
+    private final SensorReadingRepository sensorReadingRepository;
     private final LocationRepository locationRepository;
     private final SensorTypeRepository sensorTypeRepository;
     private final SensorRepository sensorRepository;
     private final SensordatavalueRepository sensordatavalueRepository;
 
     public MeasurementPersister(
-            DatumRepository datumRepository, LocationRepository locationRepository,
+            SensorReadingRepository sensorReadingRepository, LocationRepository locationRepository,
             SensorTypeRepository sensorTypeRepository, SensorRepository sensorRepository,
             SensordatavalueRepository sensordatavalueRepository) {
-        this.datumRepository = datumRepository;
+        this.sensorReadingRepository = sensorReadingRepository;
         this.locationRepository = locationRepository;
         this.sensorTypeRepository = sensorTypeRepository;
         this.sensorRepository = sensorRepository;
@@ -55,7 +55,7 @@ public class MeasurementPersister {
                 .collect(Collectors.toList());
         sensorReading.setSensordatavalues(savedSensordatavalues);
 
-        return datumRepository.save(sensorReading);
+        return sensorReadingRepository.save(sensorReading);
     }
 
     public List<SensorReading> save(List<SensorReading> data) {
