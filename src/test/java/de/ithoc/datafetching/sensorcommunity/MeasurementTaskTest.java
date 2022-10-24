@@ -7,7 +7,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,9 +15,6 @@ import java.util.List;
 
 @ExtendWith(MockitoExtension.class)
 class MeasurementTaskTest {
-
-    @Autowired
-    private MeasurementTask measurementTask;
 
     @BeforeEach
     void setUp() {
@@ -41,7 +37,18 @@ class MeasurementTaskTest {
     }
 
     @Test
-    void fetch() {
-        // TODO Write a test case for fetching measurements
+    public void map_airrohr_v1_filter_box_to_schema() throws IOException {
+        String fileName = "airrohr-v1-filter-box.json";
+        InputStream resourceAsStream = MeasurementFetcherTest.class.getClassLoader().getResourceAsStream(fileName);
+        assert resourceAsStream != null;
+        String json =  new String(resourceAsStream.readAllBytes(), StandardCharsets.UTF_8);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        de.ithoc.datafetching.sensorcommunity.schema.SensorReading[] data
+                = objectMapper.readValue(json, de.ithoc.datafetching.sensorcommunity.schema.SensorReading[].class);
+
+        List<SensorReading> sensorReadings = SensorCommunityMapper.INSTANCE.convert(List.of(data));
+
     }
+
 }

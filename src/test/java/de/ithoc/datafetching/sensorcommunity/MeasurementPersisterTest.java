@@ -17,9 +17,6 @@ class MeasurementPersisterTest {
 
     private static final SensorReading[] sensorReading = new SensorReading[2];
 
-    @Autowired
-    private MeasurementPersister measurementPersister;
-
     @BeforeAll
     static void beforeAll() throws IOException {
         String fileName = "data.dust.min-shortened.json";

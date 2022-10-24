@@ -33,11 +33,12 @@ public class ParticulateMatterServiceIntegrationTest {
         for (int offset = 1; offset <= n; offset++) {
             sensorReadingRepository.save(createSensorReading(date, offset));
         }
-
         Instant from = Instant.parse("2022-10-05T02:00:00.00Z");
         Instant to = Instant.parse("2022-10-31T23:59:59.00Z");
 
+        List<SensorReading> fromTo = particulateMatterService.read(from, to);
 
+        Assertions.assertTrue(26 <= fromTo.size());
     }
 
     private SensorReading createSensorReading(Instant date, long offset) {

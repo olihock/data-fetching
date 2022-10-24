@@ -9,10 +9,6 @@ import java.util.Map;
 public class Sensordatavalue {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long tid;
-
-    @Column(name = "sensordatavalue_id")
     private Long id;
 
     @Column
@@ -23,13 +19,6 @@ public class Sensordatavalue {
 
     @Transient
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
-
-    public Long getTid() {
-        return tid;
-    }
-    public void setTid(Long tid) {
-        this.tid = tid;
-    }
 
     public Long getId() {
         return id;

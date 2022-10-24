@@ -14,10 +14,6 @@ import java.util.Map;
 public class SensorReading {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long tid;
-
-    @Column(name = "sensor_reading_id")
     private Long id;
 
     private String samplingRate;
@@ -32,18 +28,10 @@ public class SensorReading {
     private Sensor sensor;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "id", referencedColumnName = "tid")
     private List<Sensordatavalue> sensordatavalues = new ArrayList<Sensordatavalue>();
 
     @Transient
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
-
-    public Long getTid() {
-        return tid;
-    }
-    public void setTid(Long tid) {
-        this.tid = tid;
-    }
 
     public Long getId() {
         return id;

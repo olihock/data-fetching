@@ -51,7 +51,9 @@ public class MeasurementPersister {
         List<Sensordatavalue> sensordatavalues = sensorReading.getSensordatavalues();
         List<Sensordatavalue> savedSensordatavalues = sensordatavalues.stream().map(
                 sensordatavalue -> sensordatavalueRepository.findById(
-                    sensordatavalue.getId()).orElseGet(() -> sensordatavalueRepository.save(sensordatavalue)))
+                    sensordatavalue.getId()).orElseGet(() -> {
+                        return sensordatavalueRepository.save(sensordatavalue);
+                }))
                 .collect(Collectors.toList());
         sensorReading.setSensordatavalues(savedSensordatavalues);
 
