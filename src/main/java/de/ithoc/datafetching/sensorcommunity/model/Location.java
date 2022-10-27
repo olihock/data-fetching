@@ -44,7 +44,6 @@ public class Location {
     @Transient
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
-    @JsonProperty("id")
     public Long getId() {
         return id;
     }

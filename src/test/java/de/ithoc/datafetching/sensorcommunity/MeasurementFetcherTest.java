@@ -3,7 +3,6 @@ package de.ithoc.datafetching.sensorcommunity;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.ithoc.datafetching.sensorcommunity.model.SensorReading;
-import org.dozer.DozerBeanMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -58,17 +57,19 @@ class MeasurementFetcherTest {
     }
 
     @Test
-    void map_data_json_to_data_entity() throws JsonProcessingException {
+    void map_data_json_to_data_entity() throws IOException {
+        String fileName = "data.dust.min-shortened.json";
+        InputStream resourceAsStream = MeasurementFetcherTest.class.getClassLoader().getResourceAsStream(fileName);
+        assert resourceAsStream != null;
+        String measurementJson =  new String(resourceAsStream.readAllBytes(), StandardCharsets.UTF_8);
         de.ithoc.datafetching.sensorcommunity.schema.SensorReading[] responseData = objectMapper.readValue(
                 measurementJson, de.ithoc.datafetching.sensorcommunity.schema.SensorReading[].class);
-        MeasurementFetcher measurementFetcher = new MeasurementFetcher(null, new DozerBeanMapper());
-        SensorReading[] modelData = objectMapper.readValue(
-                measurementJson, SensorReading[].class);
+        MeasurementFetcher measurementFetcher = new MeasurementFetcher(null);
 
         SensorReading sensorReading = measurementFetcher.map(responseData[0]);
 
         Assertions.assertNotNull(sensorReading);
-        Assertions.assertEquals(modelData[0], sensorReading);
+        Assertions.assertEquals(responseData[0].getId(), sensorReading.getId());
     }
 
     @Test

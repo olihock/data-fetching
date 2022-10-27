@@ -1,3 +1,11 @@
+# Local
+## Environment
+```
+SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/data-fetching-local
+SPRING_JPA_HIBERNATE_DDL_AUTO=create-drop
+```
+
+
 Docker PostgreSQL
 
 Data Location

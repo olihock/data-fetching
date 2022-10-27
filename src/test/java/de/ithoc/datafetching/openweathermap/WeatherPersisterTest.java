@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import de.ithoc.datafetching.openweathermap.model.Weather;
 import de.ithoc.datafetching.openweathermap.repositories.*;
 import de.ithoc.datafetching.openweathermap.schema.WeatherReading;
-import org.dozer.DozerBeanMapper;
+import de.ithoc.datafetching.sensorcommunity.SensorCommunityMapper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -57,10 +57,8 @@ class WeatherPersisterTest {
         String json =  new String(resourceAsStream.readAllBytes(), StandardCharsets.UTF_8);
         ObjectMapper objectMapper = new ObjectMapper();
         WeatherReading weatherReadingSchema = objectMapper.readValue(json, WeatherReading.class);
-        DozerBeanMapper dozerBeanMapper = new DozerBeanMapper();
         de.ithoc.datafetching.openweathermap.model.WeatherReading weatherReadingModel
-                = dozerBeanMapper.map(
-                        weatherReadingSchema, de.ithoc.datafetching.openweathermap.model.WeatherReading.class);
+                = SensorCommunityMapper.INSTANCE.convert(weatherReadingSchema);
         de.ithoc.datafetching.openweathermap.model.WeatherReading weatherReadingSpy = spy(weatherReadingModel);
 
         Optional<de.ithoc.datafetching.openweathermap.model.WeatherReading> emptyWeatherReading = Optional.empty();

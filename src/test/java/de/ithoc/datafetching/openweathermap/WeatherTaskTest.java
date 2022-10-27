@@ -2,7 +2,7 @@ package de.ithoc.datafetching.openweathermap;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.ithoc.datafetching.openweathermap.schema.WeatherReading;
-import org.dozer.DozerBeanMapper;
+import de.ithoc.datafetching.sensorcommunity.SensorCommunityMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -39,9 +39,7 @@ class WeatherTaskTest {
         resourceAsStream.close();
         WeatherReading schemaReading = objectMapper.readValue(json, WeatherReading.class);
         de.ithoc.datafetching.openweathermap.model.WeatherReading modelReading
-                = new DozerBeanMapper().map(
-                        schemaReading,
-                        de.ithoc.datafetching.openweathermap.model.WeatherReading.class);
+                = SensorCommunityMapper.INSTANCE.convert(schemaReading);
 
         when(weatherFetcher.load(Mockito.any())).thenReturn(schemaReading);
         when(weatherFetcher.map(any(WeatherReading.class))).thenReturn(modelReading);

@@ -2,29 +2,20 @@ package de.ithoc.datafetching.sensorcommunity;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.ithoc.datafetching.sensorcommunity.model.SensorReading;
-import org.dozer.DozerBeanMapper;
-import org.junit.Ignore;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
-import java.util.List;
 
 @ExtendWith(MockitoExtension.class)
 class MeasurementPersisterTest {
 
     private static final SensorReading[] sensorReading = new SensorReading[2];
-
-    @Autowired
-    private MeasurementPersister measurementPersister;
 
     @BeforeAll
     static void beforeAll() throws IOException {
@@ -35,9 +26,8 @@ class MeasurementPersisterTest {
         ObjectMapper objectMapper = new ObjectMapper();
         de.ithoc.datafetching.sensorcommunity.schema.SensorReading[] responseData = objectMapper.readValue(
                 json, de.ithoc.datafetching.sensorcommunity.schema.SensorReading[].class);
-        DozerBeanMapper dozerBeanMapper = new DozerBeanMapper();
-        sensorReading[0] = dozerBeanMapper.map(responseData[0], SensorReading.class);
-        sensorReading[1] = dozerBeanMapper.map(responseData[1], SensorReading.class);
+        sensorReading[0] = SensorCommunityMapper.INSTANCE.convert(responseData[0]);
+        sensorReading[1] = SensorCommunityMapper.INSTANCE.convert(responseData[1]);
     }
 
 

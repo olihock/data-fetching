@@ -35,12 +35,15 @@ public class MeasurementTask {
         System.out.println(LocalDateTime.now() + " Thread: " + Thread.currentThread() + ", " + Thread.activeCount());
 
         String rawJson = measurementFetcher.loadRawJson(filterBoxUrl);
-       System.out.println(LocalDateTime.now() + " rawJson: " + rawJson.length() + "");
+        System.out.println(LocalDateTime.now() + " rawJson: " + rawJson.length() + "");
 
-        SensorReading[] data = objectMapper.readValue(rawJson, SensorReading[].class);
+        de.ithoc.datafetching.sensorcommunity.schema.SensorReading[] data
+                = objectMapper.readValue(rawJson, de.ithoc.datafetching.sensorcommunity.schema.SensorReading[].class);
         System.out.println(LocalDateTime.now() + " data: " + data);
 
-        List<SensorReading> dataList = measurementFetcher.filterBySensorType(data, "SDS011");
+        List<SensorReading> sensorReadings = SensorCommunityMapper.INSTANCE.convert(List.of(data));
+
+        List<SensorReading> dataList = measurementFetcher.filterBySensorType(sensorReadings, "SDS011");
         measurementPersister.save(dataList);
         System.out.println(LocalDateTime.now() + ": Fetching done");
     }
